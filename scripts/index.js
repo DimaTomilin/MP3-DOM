@@ -17,8 +17,14 @@ function playSong(songId) {
  * Creates a song DOM element based on a song object.
  */
 function createSongElement({ id, title, album, artist, duration, coverArt }) {
-    const song=arguments[0]
-    const children = songChildrenlist(song)
+    const titleEL=createElement("p",[title],["titleOfSong"])
+    const albumEL=createElement("p",[album])
+    const artistEL=createElement("p",["Artist: "+artist])
+    const durationEL=createElement("p",[toCorrectDuration(duration)],["durationOfSongs"])
+    const coverArtURL=coverArt
+    const coverArtEL=createElement("img",[],["coverArtOfSong"],{ src : coverArtURL})
+    const textElement=createElement("div",[titleEL, albumEL, artistEL, durationEL],[])
+    const children = [coverArtEL, textElement]
     const classes = ["song"]
     const attrs = { onclick: `playSong(${id})`,cursor:"pointer",id: id }
     return createElement("div", children, classes, attrs)
@@ -28,8 +34,11 @@ function createSongElement({ id, title, album, artist, duration, coverArt }) {
  * Creates a playlist DOM element based on a playlist object.
  */
  function createPlaylistElement({ id, name, songs }) {
-    const playlist=arguments[0]
-    const children = playlistChildrenlist(playlist)
+    const nameEL=createElement("p",[name],["NameOfPlaylist"])
+    const songsEl=createElement("p",["Number of songs in playlist: "+songs.length])
+    const durationOfPlaylist=toCorrectDuration(playlistDuration(songs))
+    const durationEL=createElement("p",[durationOfPlaylist],["durationOfSongs"])
+    const children = [nameEL, songsEl, durationEL]
     const classes = ["playlist"]
     const attrs = {id: id}
     return createElement("div", children, classes, attrs)
@@ -47,63 +56,24 @@ function createSongElement({ id, title, album, artist, duration, coverArt }) {
  * @param {Array} classes - the class list of the new element
  * @param {Object} attributes - the attributes for the new element
  */
+
 function createElement(tagName, children = [], classes = [], attributes = {}) {
-    let element = document.createElement(tagName)
-    classes.forEach(сlass =>element.classList.add("class") )
-    const attribute=Object.keys(attributes)
-    for(let i=0;i<attribute.length;i++){
-        element.setAttribute(attribute[i], attributes[attribute[i]])  
+    let el = document.createElement(tagName)
+    //Adding children
+    for(const child of children){
+        el.append(child);
     }
-    for(let i=0;i<children.length;i++){
-        element.appendChild(children[i])
+    //Adding classes
+    for(const cls of classes){
+        el.classList.add(cls);
     }
-    return  element
+    //Adding attributes
+    for(const attr in attributes){
+        el.setAttribute(attr, attributes[attr])
+    }
+    return  el
 }
 
-
-function songChildrenlist(song){
-    const list=[]
-    for(let key in song){
-        if(key==="coverArt"){
-            const img=document.createElement("img")
-            img.src=song[key]
-            list.push(img)
-        }
-        else if(key!=="id"){
-            const li=document.createElement("p");
-            if(typeof song[key] ==="number"){
-                li.innerText=toCorrectDuration(song[key]);
-                list.push(li)
-            }
-            else{
-                li.innerText=song[key];
-                list.push(li)
-            }
-        }
-    }
-    return list
-}
-
-function playlistChildrenlist(playlist){
-    const list=[]
-    for(let key in playlist){
-        if(key==="songs") {
-            const li=document.createElement("p")
-            li.innerText=`Number of songs: ${playlist.songs.length}`
-            list.push(li)
-        }
-        else if(key!=="id"){
-            const li=document.createElement("p")
-            li.innerText=playlist[key];
-            list.push(li)
-        }
-    }
-    const li=document.createElement("p")
-    let sumDuration = toCorrectDuration(playlistDuration(playlist))
-    li.innerText=sumDuration;
-    list.push(li)
-    return list 
-}
 
 function toCorrectDuration(seconds){ //transform duration for people
     let mm;
@@ -119,15 +89,15 @@ function toCorrectDuration(seconds){ //transform duration for people
     return mm+":"+ss;
   }
 
-function playlistDuration(playlist) {
+function playlistDuration(arrSongsId) {
     let sumDuration=0;
-    for(let i=0;i<playlist.songs.length;i++){
-      sumDuration+=player.songs[songIndex(songById(playlist.songs[i]))].duration;
+    for(let i=0;i<arrSongsId.length; i++){
+        sumDuration+=player.songs[songIndex(songById(arrSongsId[i]))].duration;
     }
     return sumDuration;
-  }
+}
 
-  function songById(id){
+function songById(id){
     let songObj=player.songs.find(x=> x.id===id);
     if (songObj===undefined){
       throw "Not a Valid ID"
@@ -144,12 +114,29 @@ function sortArray(songA, songB){
       return songA.title.localeCompare(songB.title);
 }
 
-player.songs.sort(sortArray);
-const listOfSongs=document.getElementById("songs");
-for(let i=0;i<player.songs.length;i++){
-    listOfSongs.appendChild(createSongElement(player.songs[i]))
+// player.songs.sort(sortArray);
+// const headingSong=createElement("h1")
+// headingSong.textContent="Songs:"
+// const listOfSongs=document.getElementById("songs");
+// listOfSongs.appendChild(headingSong)
+// for(let i=0;i<player.songs.length;i++){
+//     listOfSongs.appendChild(createSongElement(player.songs[i]))
+// }
+// const headingPlaylists=createElement("h1")
+// headingPlaylists.textContent="Playlists:"
+// const listOfPLaylists=document.getElementById("playlists")
+// listOfSongs.appendChild(headingPlaylists)
+// for(let i=0;i<player.playlists.length;i++){
+//     listOfPLaylists.appendChild(createPlaylistElement(player.playlists[i]))
+// }
+const songsListEl=document.getElementById("songs")
+player.songs.sort(sortArray)
+for(const song of player.songs){
+    const songEl=createSongElement(song)
+    songsListEl.append(songEl)
 }
-const listOfPLaylists=document.getElementById("playlists")
-for(let i=0;i<player.playlists.length;i++){
-    listOfPLaylists.appendChild(createPlaylistElement(player.playlists[i]))
+const playlistsListEl=document.getElementById("playlists")
+for(const playlist of player.playlists){
+    const playlistEl=createPlaylistElement(playlist)
+    playlistsListEl.append(playlistEl)
 }
