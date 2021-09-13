@@ -6,9 +6,9 @@
  */
 function playSong(songId) {
     for (let song of player.songs){
-     document.getElementById(song.id).style.background="white"
+     document.getElementById(song.id).style.background="GreenYellow";
      if(song.id===songId){
-        document.getElementById(song.id).style.background="lightblue"
+        document.getElementById(song.id).style.background="LimeGreen";
      }
  }
 }
@@ -19,8 +19,8 @@ function playSong(songId) {
 function createSongElement({ id, title, album, artist, duration, coverArt }) {
     const titleEL=createElement("p",[title],["titleOfSong"])
     const albumEL=createElement("p",[album])
-    const artistEL=createElement("p",["Artist: "+artist])
-    const durationEL=createElement("p",[toCorrectDuration(duration)],["durationOfSongs"])
+    const artistEL=createElement("p",["Artist: "+artist],["artist"])
+    const durationEL=createElement("p",[toCorrectDuration(duration)],["durationOfSongs"],{})
     const coverArtURL=coverArt
     const coverArtEL=createElement("img",[],["coverArtOfSong"],{ src : coverArtURL})
     const textElement=createElement("div",[titleEL, albumEL, artistEL, durationEL],[])
