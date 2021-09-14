@@ -13,6 +13,33 @@ function playSong(songId) {
  }
 }
 
+function durationLong(duration){
+    if(duration<120){
+        return element.style.color="green";
+    }
+    else if(duration>420){
+        return element.style.color="red"
+    } 
+    else{
+        return element.style.color="blue"
+    }
+}
+
+
+
+
+
+
+
+// function playDuration(songId) {
+//     for (let song of player.songs){
+//      document.getElementById(song.id).getElementsByClassName("durationOfSongs")[0].style.color = "black";
+//      if(song.id===songId){
+//         document.getElementById(song.id).getElementsByClassName("durationOfSongs")[0].style.color = "blue";
+//      }
+//  }
+// }
+
 /**
  * Creates a song DOM element based on a song object.
  */
@@ -20,7 +47,8 @@ function createSongElement({ id, title, album, artist, duration, coverArt }) {
     const titleEL=createElement("p",[title],["titleOfSong"])
     const albumEL=createElement("p",[album])
     const artistEL=createElement("p",["Artist: "+artist],["artist"])
-    const durationEL=createElement("p",[toCorrectDuration(duration)],["durationOfSongs"],{})
+    const durationEL=createElement("p",[toCorrectDuration(duration)],["durationOfSongs"])
+    durationEL.style.color=reflectColor(duration);
     const coverArtURL=coverArt
     const coverArtEL=createElement("img",[],["coverArtOfSong"],{ src : coverArtURL})
     const textElement=createElement("div",[titleEL, albumEL, artistEL, durationEL],[])
@@ -114,11 +142,31 @@ function sortArray(songA, songB){
       return songA.title.localeCompare(songB.title);
 }
 
+function reflectColor(duration){
+    if(duration<=120){
+        return "lime"
+    }
+    else if(duration>=420){
+        return "red"
+    }
+    else{
+        let r=0;
+        let g=255;
+        let b=0;
+        let durationDifference=duration-120;
+        r+=Math.floor(durationDifference*0.85)
+        g-=Math.floor(durationDifference*0.85)
+        let rgbColor = `rgb(${r},${g},${b})`
+        return rgbColor
+    }
+}
+
 const songsListEl=document.getElementById("songs")
 player.songs.sort(sortArray)
 for(const song of player.songs){
     const songEl=createSongElement(song)
     songsListEl.append(songEl)
+    // document.getElementById(song.id).getElementsByClassName("durationOfSongs")[0].style.color = "rgb(155, 102, 102)";
 }
 const playlistsListEl=document.getElementById("playlists")
 for(const playlist of player.playlists){

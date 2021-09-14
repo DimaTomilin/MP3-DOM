@@ -13,9 +13,10 @@ div.song{
     justify-content: flex-start;
     align-content: stretch;
     width: 420px;
-    margin: 15px;
+    margin: 15px; 
     font-family: "Gill Sans", sans-serif, cursive;
-    font-size: 20px;
+    font-size: 18px;
+    font-weight: 500;
     border: 3px solid;
     border-radius: 20px;
     background-color: GreenYellow;
@@ -37,8 +38,12 @@ div.playlist{
 }
 
 img{
-    max-height: 200px;
+    max-height: 120px;
     margin: 15px;
+}
+
+p{
+    margin: 10px;
 }
 
 .heading{
@@ -52,8 +57,8 @@ img{
 
 .titleOfSong{
     font-weight: bold;
-    font-size: larger;
-    font-style: italic;
+    font-size: 20px;
+    margin-top: 15px;
 }
 
 .artist{
