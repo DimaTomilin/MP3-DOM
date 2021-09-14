@@ -40,7 +40,7 @@ function createSongElement({ id, title, album, artist, duration, coverArt }) {
     const durationEL=createElement("p",[durationOfPlaylist],["durationOfSongs"])
     const children = [nameEL, songsEl, durationEL]
     const classes = ["playlist"]
-    const attrs = {id: id}
+    const attrs = {}
     return createElement("div", children, classes, attrs)
 }
 
@@ -114,21 +114,6 @@ function sortArray(songA, songB){
       return songA.title.localeCompare(songB.title);
 }
 
-// player.songs.sort(sortArray);
-// const headingSong=createElement("h1")
-// headingSong.textContent="Songs:"
-// const listOfSongs=document.getElementById("songs");
-// listOfSongs.appendChild(headingSong)
-// for(let i=0;i<player.songs.length;i++){
-//     listOfSongs.appendChild(createSongElement(player.songs[i]))
-// }
-// const headingPlaylists=createElement("h1")
-// headingPlaylists.textContent="Playlists:"
-// const listOfPLaylists=document.getElementById("playlists")
-// listOfSongs.appendChild(headingPlaylists)
-// for(let i=0;i<player.playlists.length;i++){
-//     listOfPLaylists.appendChild(createPlaylistElement(player.playlists[i]))
-// }
 const songsListEl=document.getElementById("songs")
 player.songs.sort(sortArray)
 for(const song of player.songs){
