@@ -6,40 +6,12 @@
  */
 function playSong(songId) {
     for (let song of player.songs){
-     document.getElementById(song.id).style.background="GreenYellow";
-     if(song.id===songId){
-        document.getElementById(song.id).style.background="LimeGreen";
-     }
- }
-}
-
-function durationLong(duration){
-    if(duration<120){
-        return element.style.color="green";
-    }
-    else if(duration>420){
-        return element.style.color="red"
-    } 
-    else{
-        return element.style.color="blue"
+    document.getElementById(song.id).style.background="GreenYellow";
+        if(song.id===songId){
+            document.getElementById(song.id).style.background="LimeGreen";
+        }
     }
 }
-
-
-
-
-
-
-
-// function playDuration(songId) {
-//     for (let song of player.songs){
-//      document.getElementById(song.id).getElementsByClassName("durationOfSongs")[0].style.color = "black";
-//      if(song.id===songId){
-//         document.getElementById(song.id).getElementsByClassName("durationOfSongs")[0].style.color = "blue";
-//      }
-//  }
-// }
-
 /**
  * Creates a song DOM element based on a song object.
  */
@@ -165,8 +137,7 @@ const songsListEl=document.getElementById("songs")
 player.songs.sort(sortArray)
 for(const song of player.songs){
     const songEl=createSongElement(song)
-    songsListEl.append(songEl)
-    // document.getElementById(song.id).getElementsByClassName("durationOfSongs")[0].style.color = "rgb(155, 102, 102)";
+    songsListEl.append(songEl);
 }
 const playlistsListEl=document.getElementById("playlists")
 for(const playlist of player.playlists){

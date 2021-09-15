@@ -1,4 +1,4 @@
-* {
+/* * {
     box-sizing: border-box;
     
   }
@@ -42,7 +42,7 @@ img{
     margin: 15px;
 }
 
-p{
+span{
     margin: 10px;
 }
 
@@ -55,7 +55,7 @@ p{
     margin-bottom: 25px;
 }
 
-.titleOfSong{
+.title{
     font-weight: bold;
     font-size: 20px;
     margin-top: 15px;
@@ -74,4 +74,4 @@ p{
 #playlists{
     margin-bottom: 150px;
 }
-
+  */
