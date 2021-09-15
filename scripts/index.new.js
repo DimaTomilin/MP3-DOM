@@ -21,7 +21,25 @@ function playSong(songId){
  * @param {Number} songId - the ID of the song to remove
  */
 function removeSong(songId) {
-    // Your code here
+    let index=songIndex(songById(songId))
+    for(let list of player.playlists){
+        if(list.songs.includes(songId)){
+            list.songs.splice((list.songs.indexOf(songId)),1)
+        }
+    }
+    player.songs.splice(index,1)
+    let listOfSongs = document.querySelectorAll(".song");
+    for(const song of listOfSongs){
+        song.remove()
+    }
+    generateSongs();
+    let listOfPlaylists = document.querySelectorAll(".playlist");
+    for(const playlist of listOfPlaylists){
+        playlist.remove()
+    }
+    generatePlaylists();
+    
+
 }
 
 /**
@@ -38,7 +56,16 @@ function addSong({ title, album, artist, duration, coverArt }) {
  * @param {MouseEvent} event - the click event
  */
 function handleSongClickEvent(event) {
-    // Your code here
+    const target=event.target
+    const songId=parseInt(target.closest(".song").id)
+    switch(target.className){
+        case 'play-button':
+            playSong(songId);
+            break;
+        case 'remove-button':
+            removeSong(songId);
+            break;
+    }
 }
 
 /**
@@ -219,16 +246,19 @@ generateSongs()
 generatePlaylists()
 
 
-songs.addEventListener("click", (e) => {
-    const target=e.target
-    const cls=target.className
-    const songId=parseInt(target.closest(".song").id)
-    if (cls!=="play-button"){
-        return;
-    } else {
-       playSong(songId)
-    }
-})
+songs.addEventListener("click", handleSongClickEvent)
+
+
+// (e) => {
+//     const target=e.target
+//     const cls=target.className
+//     const songId=parseInt(target.closest(".song").id)
+//     if (cls!=="play-button"){
+//         return;
+//     } else {
+//        playSong(songId)
+//     }
+// }
 
 
  
