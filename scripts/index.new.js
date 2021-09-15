@@ -28,11 +28,7 @@ function removeSong(songId) {
         }
     }
     player.songs.splice(index,1)
-    let listOfSongs = document.querySelectorAll(".song");
-    for(const song of listOfSongs){
-        song.remove()
-    }
-    generateSongs();
+    document.getElementById(songId).remove()
     let listOfPlaylists = document.querySelectorAll(".playlist");
     for(const playlist of listOfPlaylists){
         playlist.remove()
@@ -244,22 +240,8 @@ function generatePlaylists() {
 // Creating the page structure
 generateSongs()
 generatePlaylists()
-
-
+//Adding Event Delegation to parent element
 songs.addEventListener("click", handleSongClickEvent)
-
-
-// (e) => {
-//     const target=e.target
-//     const cls=target.className
-//     const songId=parseInt(target.closest(".song").id)
-//     if (cls!=="play-button"){
-//         return;
-//     } else {
-//        playSong(songId)
-//     }
-// }
-
 
  
 
