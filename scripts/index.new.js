@@ -4,14 +4,16 @@
  *
  * @param {Number} songId - the ID of the song to play
  */
- function playSong(songId) {
-    for (let song of player.songs){
-    document.getElementById(song.id).style.background="GreenYellow";
+
+function playSong(songId){
+    for(let song of player.songs){
+        document.getElementById(song.id).style.background="none";
         if(song.id===songId){
             document.getElementById(song.id).style.background="LimeGreen";
         }
     }
 }
+
 
 /**
  * Removes a song from the player, and updates the DOM to match.
@@ -67,7 +69,7 @@ function createSongElement({ id, title, album, artist, duration, coverArt }) {
     const rightpartEL=createElement("div",[durationEL, songActionsEL],["right"],)
     const children = [leftpartEL, rightpartEL]
     const classes = ["song"]
-    const attrs = { onclick: `playSong(${id})`,cursor:"pointer",id: id }
+    const attrs = {cursor:"pointer",id: id }
     const eventListeners = {}
     return createElement("div", children, classes, attrs, eventListeners)
 }
@@ -117,7 +119,9 @@ function createElement(tagName, children = [], classes = [], attributes = {}, ev
         el.setAttribute(attr, attributes[attr])
     }
     //Adding events
-
+    for(const event in eventListeners){
+        el.addEventListener(event, eventListeners[event])
+    }
     return  el
 }
 
@@ -213,6 +217,21 @@ function generatePlaylists() {
 // Creating the page structure
 generateSongs()
 generatePlaylists()
+
+
+songs.addEventListener("click", (e) => {
+    const target=e.target
+    const cls=target.className
+    const songId=parseInt(target.closest(".song").id)
+    if (cls!=="play-button"){
+        return;
+    } else {
+       playSong(songId)
+    }
+})
+
+
+ 
 
 // Making the add-song-button actually do something
 document.getElementById("add-button").addEventListener("click", handleAddSongEvent)
