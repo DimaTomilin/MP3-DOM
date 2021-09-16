@@ -21,7 +21,11 @@ div.song{
     border-radius: 20px;
     background-color: GreenYellow;
 }
-
+*/
+.selected{
+    background-color: LimeGreen;
+}
+/*
 div.playlist{
     display: flex;
     justify-content: space-between;

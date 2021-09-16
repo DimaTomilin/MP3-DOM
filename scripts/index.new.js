@@ -4,14 +4,12 @@
  *
  * @param {Number} songId - the ID of the song to play
  */
-
 function playSong(songId){
-    for(let song of player.songs){
-        document.getElementById(song.id).style.background="none";
-        if(song.id===songId){
-            document.getElementById(song.id).style.background="LimeGreen";
-        }
+    let selected = document.querySelectorAll('.selected');
+    for(let elem of selected) {
+        elem.classList.remove('selected');
     }
+    document.getElementById(songId).classList.add('selected');
 }
 
 
@@ -34,15 +32,18 @@ function removeSong(songId) {
         playlist.remove()
     }
     generatePlaylists();
-    
-
 }
 
 /**
  * Adds a song to the player, and updates the DOM to match.
  */
 function addSong({ title, album, artist, duration, coverArt }) {
-    // Your code here
+    addSongToPlayer(title, album, artist, duration, coverArt)
+    let listOfSongs = document.querySelectorAll(".song");
+    for(const song of listOfSongs){
+        song.remove()
+    }
+    generateSongs();
 }
 
 /**
@@ -56,7 +57,7 @@ function handleSongClickEvent(event) {
     const songId=parseInt(target.closest(".song").id)
     switch(target.className){
         case 'play-button':
-            playSong(songId);
+            playSong(songId)
             break;
         case 'remove-button':
             removeSong(songId);
@@ -70,7 +71,18 @@ function handleSongClickEvent(event) {
  * @param {MouseEvent} event - the click event
  */
 function handleAddSongEvent(event) {
-    // Your code here
+    const newSong={}
+    const inputesElements=document.querySelectorAll("input")
+    for(const input of inputesElements){
+        let name=input.name
+        if(name.includes("-")){
+            name="coverArt"
+        }
+        let value=input.value
+        newSong[name]=value;
+        input.value="";
+    }
+    addSong(newSong);
 }
 
 /**
@@ -160,7 +172,24 @@ function toCorrectDuration(seconds){ //transform duration for people
     }
     else ss=`${Math.floor(seconds%60)}`;
     return mm+":"+ss;
-  }
+}
+
+function addSongToPlayer(title, album, artist, duration, coverArt) {
+    let obj={
+      id: newId(player.songs),
+      title: title,
+      album: album,
+      artist: artist,
+      duration: durationToSeconds(duration),
+      coverArt: coverArt
+    }
+    player.songs.push(obj)
+}
+
+function durationToSeconds(str){
+    let duration=(parseInt(str.slice(0,2))*60)+parseInt(str.slice((str.length-2),(str.length)));
+    return duration;
+}
 
 function playlistDuration(arrSongsId) {
     let sumDuration=0;
@@ -168,6 +197,14 @@ function playlistDuration(arrSongsId) {
         sumDuration+=player.songs[songIndex(songById(arrSongsId[i]))].duration;
     }
     return sumDuration;
+}
+
+function newId(obj){ //I take the next max id of the object
+    let maxId=0;
+    for (let i of obj){
+      if(i.id>maxId) maxId=i.id;
+    }
+    return maxId+1;
 }
 
 function songById(id){
