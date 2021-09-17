@@ -98,8 +98,8 @@ function createSongElement({ id, title, album, artist, duration, coverArt }) {
     const leftpartEL=createElement("div",[coverArtEL, songDetailsEL],["left"],)
     const durationEL=createElement("div",[toCorrectDuration(duration)],["song-duration"])
     durationEL.style.color=reflectColor(duration);
-    const buttonPlay=createElement("button",["Play"],["play-button"])
-    const buttonRemove=createElement("button",["Remove"],["remove-button"])
+    const buttonPlay=createElement("button",["▶️"],["play-button"])
+    const buttonRemove=createElement("button",["🗑️"],["remove-button"])
     const songActionsEL=createElement("div",[buttonPlay, buttonRemove],["song-actions"])
     const rightpartEL=createElement("div",[durationEL, songActionsEL],["right"],)
     const children = [leftpartEL, rightpartEL]
