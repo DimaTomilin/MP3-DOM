@@ -159,7 +159,9 @@ function createElement(tagName, children = [], classes = [], attributes = {}, ev
     }
     return  el
 }
-
+/*
+    Function that taking duration on the seconds and transforme it to format mm:ss
+*/
 function toCorrectDuration(seconds){ //transform duration for people
     let mm;
     if(Math.floor(seconds/60)<10){
@@ -174,6 +176,9 @@ function toCorrectDuration(seconds){ //transform duration for people
     return mm+":"+ss;
 }
 
+/*
+    Function that adding song to the player array
+*/
 function addSongToPlayer(title, album, artist, duration, coverArt) {
     let obj={
       id: newId(player.songs),
@@ -186,11 +191,17 @@ function addSongToPlayer(title, album, artist, duration, coverArt) {
     player.songs.push(obj)
 }
 
+/*
+    Function that transform duration in mm:ss format to seconds
+*/
 function durationToSeconds(str){
     let duration=(parseInt(str.slice(0,2))*60)+parseInt(str.slice((str.length-2),(str.length)));
     return duration;
 }
 
+/*
+    Function that sum durations of all songs in the playlist and return result
+*/
 function playlistDuration(arrSongsId) {
     let sumDuration=0;
     for(let i=0;i<arrSongsId.length; i++){
@@ -199,7 +210,10 @@ function playlistDuration(arrSongsId) {
     return sumDuration;
 }
 
-function newId(obj){ //I take the next max id of the object
+/*
+    Function that searches the next max id in the object
+*/
+function newId(obj){ 
     let maxId=0;
     for (let i of obj){
       if(i.id>maxId) maxId=i.id;
@@ -207,6 +221,10 @@ function newId(obj){ //I take the next max id of the object
     return maxId+1;
 }
 
+
+/*
+    Function that return object of song from player.songs usesed ID of song
+*/
 function songById(id){
     let songObj=player.songs.find(x=> x.id===id);
     if (songObj===undefined){
@@ -215,19 +233,35 @@ function songById(id){
     return songObj;
 }
 
+
+/*
+    Function that return index of the song Object in the array of the songs
+*/
 function songIndex(song){
     let index=player.songs.indexOf(song);
     return index
 }
 
+
+/*
+    Function that sorts songs by title
+*/
 function sortSongs(songA, songB){
       return songA.title.localeCompare(songB.title);
 }
 
+
+/*
+    Function that sorts playlists by name
+*/
 function sortPlaylists(playlistA, playlistB){
     return playlistA.name.localeCompare(playlistB.name);
 }
 
+
+/*
+    Function that change color of duration because long of the song
+*/
 function reflectColor(duration){
     if(duration<=120){
         return "lime"
