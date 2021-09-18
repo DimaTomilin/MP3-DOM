@@ -1,1 +1,146 @@
-/* Your code here */
+* {
+    box-sizing: border-box;
+    
+  }
+
+body{
+    background: linear-gradient(90deg, rgb(71, 66, 230) 0%, rgba(5,188,230,1) 30%, rgba(0,255,115,1) 100%);
+  }
+
+h1{
+    font-family: Lucida Handwriting;
+    font-size: 60px;
+    font-weight: 900;
+    text-align: center;
+    margin-top: 60px;
+    margin-bottom: 25px;
+}
+
+div.song{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 450px;
+    margin: 15px; 
+    font-family: "Gill Sans", sans-serif, cursive;
+    font-size: 16px;
+    font-weight: 500;
+    border: 3px solid;
+    border-radius: 20px;
+    background-color: whitesmoke;
+}
+
+div.playlist{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 600;
+    font-family: "Gill Sans", sans-serif, cursive;
+    border: 3px solid;
+    border-radius: 25px;
+    width: 50%;
+    margin: 15px 25%;
+    padding: 0px 20px;
+    background-color: whitesmoke;
+}
+
+img{
+    max-height: 80px;
+    margin: 10px;
+}
+
+span{
+    margin: 2px;
+}
+
+input{
+    border-radius: 10px;
+    font-size: 16px;
+    padding: 5px;
+    border: 3px solid;
+    border-color: black;
+    margin: 10px;
+}
+
+.list{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.heading{
+    font-family: Lucida Handwriting;
+    font-size: 45px;
+    font-weight: 900;
+    text-align: center;
+    margin-top: 60px;
+    margin-bottom: 25px;
+}
+
+.title{
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.artist{
+    font-style: italic;
+}
+
+.selected{
+    background-color: rgb(65, 236, 65) !important;
+}
+
+.left{
+    display: flex;
+    align-items: center;
+}
+
+.song-details{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.right{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin: 5px 10px;
+}
+
+.right>div{
+    font-size: 20px;
+    margin: 3px;
+}
+
+.remove-button{
+    background-color: red;
+    margin-left: 5px;
+}
+
+#add-button{
+    margin-top: 20px;
+    margin-left: 47%;
+    height: 40px;
+    width: 90px;
+    font-size: 24px;
+    font-weight: 600;
+    background-color: rgb(15, 204, 15);
+    padding: 2px 10px;
+    border-radius: 5px;
+}
+
+#inputs{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    
+}
+
+#playlists{
+    margin-bottom: 100px;
+}
+ 
